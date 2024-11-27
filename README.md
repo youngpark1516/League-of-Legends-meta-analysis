@@ -1,1 +1,2 @@
-# League-of-Legends-meta-analysis
+# League of Legends Meta Analysis
+### Chanyoung Park
