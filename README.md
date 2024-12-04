@@ -2,7 +2,7 @@
 
 
 ## Introduction
-When I'm so cooked for the final exam but I'm just a chill guy who'll lowk try his best whatever the result is
+When I'm cooked for the final exam but I'm just a chill guy who'll just work as Alex's receptionist anyways
 ![chill guy](image.png)
 ## Data Cleaning and Exploratory Data Analysis
 
