@@ -37,7 +37,30 @@ The histogram shows a nearly normal graph with slight rightward skew. This sugge
 
 ### Bivariate Analysis
 
+Bivariate analysis on earned gold share per position.
+
+<iframe
+  src="assets/position_Vs_share.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+This bar graph shows the 
+
+
+<iframe
+  src="assets/position_Vs_gold.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 ### Interesting Aggregates
+| result | top | jng | mid | bot | sup |
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| 0 | 0.216391 | 0.181094 | 0.247049 | 0.255583 | 0.099883 |
+| 1 | 0.213546 | 0.183561 | 0.240716 | 0.252594 | 0.109584
 
 
 ## Assessment of Missingness
@@ -46,9 +69,21 @@ The histogram shows a nearly normal graph with slight rightward skew. This sugge
 
 ### Missingness Dependency
 
+<iframe
+  src="assets/MAR.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 ## Hypothesis Testing
 
+<iframe
+  src="assets/hyp.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 ## Framing a Prediction Problem
 
