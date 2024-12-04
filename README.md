@@ -2,7 +2,7 @@
 
 
 ## Introduction
-
+When I'm so cooked for the final exam but I'm just a chill guy who'll lowk try his best whatever the result is
 
 ## Data Cleaning and Exploratory Data Analysis
 
