@@ -40,7 +40,7 @@ The histogram shows a nearly normal graph with slight rightward skew. This sugge
 Bivariate analysis on earned gold share per position.
 
 <iframe
-  src="assets/position_Vs_share.html"
+  src="assets/position_vs_share.html"
   width="800"
   height="600"
   frameborder="0"
@@ -50,7 +50,7 @@ This bar graph shows the
 
 
 <iframe
-  src="assets/position_Vs_gold.html"
+  src="assets/position_vs_gold.html"
   width="800"
   height="600"
   frameborder="0"
