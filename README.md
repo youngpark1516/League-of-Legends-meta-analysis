@@ -1,2 +1,2 @@
-# League of Legends Meta Analysis
+# League of Legends Position Analysis
 ### Chanyoung Park
