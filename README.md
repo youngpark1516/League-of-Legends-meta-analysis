@@ -23,6 +23,18 @@ The skew suggests that most of the observations were concentrated on the lower e
 
 Further, the bimodal nature suggests that there is a more complex underlying pattern in damage distribution.
 
+
+Univariate analysis on obtained gold at 15 minutes
+
+<iframe
+  src="assets/dist_gold.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The histogram shows a nearly normal graph with slight rightward skew. This suggests that the data is distributed in a balanced manner.
+
 ### Bivariate Analysis
 
 ### Interesting Aggregates
