@@ -3,6 +3,25 @@
 
 ## Introduction
 
+| Column            | Description                                                             |
+|-------------------|-------------------------------------------------------------------------|
+| gameid            | Unique identifier for the game.                                         |
+| league            | The league in which the game was played (e.g., TSC).                    |
+| gamelength        | Length of the game in seconds.                                          |
+| position          | The role of the player (top, jng, mid, bot, sup)                        |
+| result            | Outcome of the game for the player (1 for win, 0 for loss).             |
+| damagetochampions | Total damage dealt by the player to champions.                          |
+| earnedgoldshare   | Proportion of total team gold earned by the player.                     |
+| visionscore       | Player's vision score, reflecting warding and vision contributions.     |
+| kills             | Number of kills made by the player.                                     |
+| deaths            | Number of times the player died.                                        |
+| assists           | Number of assists made by the player.                                   |
+| goldat15          | Gold earned by the player at 15 minutes into the game.                  |
+| csat15            | Creep score (minions killed) by the player at 15 minutes.               |
+| total cs          | Total creep score by the player by the end of the game.                 |
+| champion          | The champion played by the player in the game.                          |
+
+
 ## Data Cleaning and Exploratory Data Analysis
 
 ### Data Cleaning
