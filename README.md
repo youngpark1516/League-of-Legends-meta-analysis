@@ -57,6 +57,7 @@ This bar graph shows the
 ></iframe>
 
 ### Interesting Aggregates
+
 | result | top       | jng       | mid       | bot       | sup       |
 |--------|-----------|-----------|-----------|-----------|-----------|
 | 0      | 0.216391  | 0.181094  | 0.247049  | 0.255583  | 0.099883  |
