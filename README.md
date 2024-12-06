@@ -71,6 +71,13 @@ This bar graph shows the
 ### Missingness Dependency
 
 <iframe
+  src="assets/MAR_obs.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
   src="assets/MAR.html"
   width="800"
   height="600"
