@@ -24,10 +24,30 @@
 
 ## Data Cleaning and Exploratory Data Analysis
 
+| Column Name         | Data Type |
+|---------------------|-----------|
+| gameid              | object    |
+| league              | object    |
+| gamelength          | int64     |
+| position            | object    |
+| result              | int64     |
+| damagetochampions   | int64     |
+| earnedgoldshare     | float64   |
+| visionscore         | int64     |
+| kills               | int64     |
+| deaths              | int64     |
+| assists             | int64     |
+| goldat15            | float64   |
+| csat15              | float64   |
+| total cs            | float64   |
+| champion            | object    |
+
+
 ### Data Cleaning
 
 ### Univariate Analysis
-Univariate analysis on damage done to champions by individuals.
+
+**Univariate analysis on damage done to champions by individuals**
 
 <iframe
   src="assets/dist_damage.html"
@@ -36,14 +56,11 @@ Univariate analysis on damage done to champions by individuals.
   frameborder="0"
 ></iframe>
 
-The histogram shows a bimodal distribution heavily skewed to the right. 
+There are two peaks in the distribution, the first at around 8,000 damage and the second around 20,000 damage. The bimodal nature suggests that there is a more complex underlying pattern in damage distribution.
 
-The skew suggests that most of the observations were concentrated on the lower end of the range, with the long tail implying that there are certain cases where players deal significantly higher damages.
+The distribution is heavily skewed to the right with a long tail extending up to 100000. The skew suggests that most of the observations were concentrated on the lower end of the range with the long tail implying that there are certain cases where players deal significantly higher damages.
 
-Further, the bimodal nature suggests that there is a more complex underlying pattern in damage distribution.
-
-
-Univariate analysis on obtained gold at 15 minutes
+**Univariate analysis on obtained gold at 15 minutes**
 
 <iframe
   src="assets/dist_gold.html"
@@ -52,14 +69,16 @@ Univariate analysis on obtained gold at 15 minutes
   frameborder="0"
 ></iframe>
 
-The histogram shows a nearly normal graph with slight rightward skew. This suggests that the data is distributed in a balanced manner.
+The histogram has a single peak at around 5000 gold indicating that most players have earned about this amount of gold by 15 minutes into the game. The peak is likely a typical gold level that players reach at 15 minutes, reflecting a common trend in professional games.
+
+The distribution is slightly skewed rightwards, some players earning up to 10k. This indicates that there are some cases where a player earns significantly more gold but these instances are relatively rare, likely from obtaining significant kills from early game fights. 
 
 ### Bivariate Analysis
 
 Bivariate analysis on earned gold share per position.
 
 <iframe
-  src="assets/position_vs_share.html"
+  src="assets/position_vs_vision_bar.html"
   width="800"
   height="600"
   frameborder="0"
@@ -77,11 +96,14 @@ This bar graph shows the
 
 ### Interesting Aggregates
 
+An aggregate analysis was performed to understand the distribution of gold across different positions for winning and losing teams. Specifically, a pivot table was created to compare the average percentage of gold earned (earnedgoldshare) by each position between teams that won (result = 1) and teams that lost (result = 0). The mean was used as aggreagate function.
+
 | result | top       | jng       | mid       | bot       | sup       |
 |--------|-----------|-----------|-----------|-----------|-----------|
-| 0      | 0.216391  | 0.181094  | 0.247049  | 0.255583  | 0.099883  |
-| 1      | 0.213546  | 0.183561  | 0.240716  | 0.252594  | 0.109584  |
+| 0      | 0.216337  | 0.181242  | 0.246962  | 0.255654  | 0.099805  |
+| 1      | 0.213628  | 0.183764  | 0.240636  | 0.252545  | 0.109427  |
 
+The aggregate shows that winning teams tend to jave allocated more gold to jungle and support roles compared to losing teams. While this may indicate that allocating greater gold to jungle and support may lead to better results, it may also be that being in a winning position in the game causes jungle and support to obtain more gold. Correlation not necessarily a causation. Regardless, I personally like to steal kills when playing suppport.
 
 ## Assessment of Missingness
 
@@ -114,6 +136,14 @@ In this hypothesis test, I aim to determine whether allocating greater gold to t
 
 **Significance Level**: 5%
 
+**Observed data**
+
+| bot_greater | result   |
+|-------------|----------|
+| False       | 0.488718 |
+| True        | 0.512186 |
+
+**Hypothesis test result**
 <iframe
   src="assets/hyp.html"
   width="800"
@@ -121,7 +151,7 @@ In this hypothesis test, I aim to determine whether allocating greater gold to t
   frameborder="0"
 ></iframe>
 
-We obtain a p-value of 0.0003, rejecting the null hypothesis at 5% significance level. This suggests that a team that had more gold allocated to the bot laner/ADC than mid laner at 15 minutes had higher likelihood of winning the game. This implies that investing greater gold to bot lane may lead to a significant advantage in winning a game in professional level of League of Legends.
+We obtain a p-value of 0.0014, rejecting the null hypothesis at 5% significance level. This suggests that a team that had more gold allocated to the bot laner/ADC than mid laner at 15 minutes had higher likelihood of winning the game. This implies that investing greater gold to bot lane may lead to a significant advantage in winning a game in professional level of League of Legends.
 
 ## Framing a Prediction Problem
 
