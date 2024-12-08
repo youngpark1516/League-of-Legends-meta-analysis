@@ -75,7 +75,7 @@ The distribution is slightly skewed rightwards, some players earning up to 10k. 
 
 ### Bivariate Analysis
 
-Bivariate analysis on earned gold share per position.
+**Bivariate analysis on vision score per position**
 
 <iframe
   src="assets/position_vs_vision_bar.html"
@@ -84,8 +84,10 @@ Bivariate analysis on earned gold share per position.
   frameborder="0"
 ></iframe>
 
-This bar graph shows the 
+This bar graph shows that support provides the highest vision score by a large margin. The jungle and bot positions also contribute moderately to vision, while mid and top have the least impact in this aspect of the game. This distribution shows that vision control is predominantly handled by supports.
 
+
+**Bivariate analysis on gold earned at 15 minutes per position**
 
 <iframe
   src="assets/position_vs_gold.html"
@@ -93,6 +95,8 @@ This bar graph shows the
   height="600"
   frameborder="0"
 ></iframe>
+
+The box plot suggests that bot and mid laners tend to have the highest gold at 15 minutes with bot having more variance. They are followed by top and jungle, where jungle is seen to have no outliers in the lower end, likely from the fact that the early farming process of jungle has relatively low likelihood of interruption. Lastly, support consistently has the lowest gold with no outliers in the lower end, both of which can be explained by the fact that  the role often does not actively farm and obtains gold passively, especially in the early stages.
 
 ### Interesting Aggregates
 
