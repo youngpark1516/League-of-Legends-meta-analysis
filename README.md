@@ -280,12 +280,9 @@ A RandomForestClassifier was employed as the baseline model implemented within a
 | **Actual Mid (1)**     | 2,710                 | 1,256             |
 
 
-**Accuracy**: 0.725
-
-**Precision**: 0.312
-
-**Recall**: 0.313
-
+**Accuracy**: 0.725\
+**Precision**: 0.312\
+**Recall**: 0.313\
 **F1 Score**: 0.313
 
 It can be seen that the model performs poorly on the test dataset. It achieves accuracy of 0.725 in a dataset where 80% is False, meaning that a blind prediction of False would have given a higher accuracy. Its precision, recall, and F1 score are all around 0.313, showing that the model fails to identify rows with `is_mid` == True.
@@ -308,16 +305,17 @@ Custom transformations were applied to create meaningful ratios, such as `goldat
 Lastly, `champion` column was added with one-hot-encoding applied. This was added as mid laners, while not limited by rule to play any champions, often play what are known to be most effective as a mid lane champion. This column is expected to help significantly, although the champion pool for mid lane changed throughout the year.
 
 **Grid search**
+
 The RandomForestClassifier was used for the final model as well, and the hyperparameters were optimized through grid search.
 
-`max_depth`: 2 through 200 with step = 20
-chosen: 162
-
-`n_estimators`: 2 through 100 with step = 10
-chosen: 82
-
+`max_depth`: 2 through 200 with step = 20\
+`n_estimators`: 2 through 100 with step = 10\
 `criterion`: 'gini', 'entropy'
-chosen: 'gini'
+
+chosen:\
+`max_depth`:162\
+`n_estimators`:82\
+`criterion`:'gini'
 
 **Performance**
 
@@ -326,12 +324,9 @@ chosen: 'gini'
 | **Actual Not Mid (0)** | 15,296                | 238               |
 | **Actual Mid (1)**     | 428                   | 3,312             |
 
-**Accuracy**: 0.965
-
-**Precision**: 0.933
-
-**Recall**: 0.886
-
+**Accuracy**: 0.965\
+**Precision**: 0.933\
+**Recall**: 0.886\
 **F1 Score**: 0.909
 
 The model is shown to have made significant improvement, with notably higher F1 score of 0.909. The enhanced feature set and hyperparameter optimization contributed to the improvement over the baseline model.
