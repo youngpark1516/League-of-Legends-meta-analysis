@@ -154,11 +154,46 @@ In this section, different types of missingness in the dataset will be discussed
 
 ### NMAR Analysis
 
+While there are plenty columns with significant portion of data missing, the majority of them are evidently related to either `league` or `datacompleteness` column. Some of the few columns that are not missing at random (NMAR) however, are the ban columns which are `ban1` up to `ban5`. A distinct pattern in missingness could not be found, and is likely resulting from the active choice from the player to not ban any champions, which happens in rare occasions, which are directly a result from the data itself. 
+
+A column that could be added to this to make the the missingness mechanism missing at random (MAR) could be to have a column representing the importance of the match, as a empty ban may be used by the team to improve their strategy in the long run in less important matches, whereas most teams would not be doing so in playoffs, for example.
+
 ### Missingness Dependency
 
 In this subsection, the dependency of missingness of the column `goldat15` will be investigated
 
-The first column tested will be `league`.
+The first column to be test is `position`.
+
+**Null Hypothesis (H<sub>0</sub>)**: The missingness of `goldat15` does not depend on the `position`.
+
+**Alternate Hypothesis (H<sub>a</sub>)**: The missingness of `goldat15` does depend on the `position`.
+
+**Test Statistic**: The Total Variation Distance (TVD) between the distributions of goldat15 missingness across different leagues.
+
+**Significance Level**: 0.05
+
+Below is the the observed missingness of `goldat15` for each position.
+
+<iframe
+  src="assets/MAR_obs_ps.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+Permutation test was ran 5000 times by shuffling the missingness of `goldat15` and was compared against the observed test statistic.
+
+<iframe
+  src="assets/MAR_ps.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The p-value found is 1.0, and as 1.0 > 0.05, the null hypothesis fails to be rejected. There is not enough evidence to claim that the missingness of `goldat15` depends on `position`.
+
+
+Another column tested will be `league`.
 
 **Null Hypothesis (H<sub>0</sub>)**: The missingness of `goldat15` does not depend on the `league`.
 
@@ -186,9 +221,7 @@ Permutation test was ran 5000 times by shuffling the missingness of `goldat15` a
   frameborder="0"
 ></iframe>
 
-The p-value found is 0.0, and as 0.0 < 0.5, the null hypothesis is rejected. The missingness of `goldat15` likely depends on `league`.
-
-The second column tested
+The p-value found is 0.0, and as 0.0 < 0.05, the null hypothesis is rejected. The missingness of `goldat15` likely depends on `league`.
 
 ## Hypothesis Testing
 In this hypothesis test, I aim to determine whether allocating greater gold to the bot/ADC (Attack Damage Carry) compared to the mid laner at 15 minutes has a significant impact on the likelihood of winning the game. This investigation is vital for understanding optimal gold distribution strategies in League of Legends and their influence on game results.
