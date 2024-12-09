@@ -259,12 +259,83 @@ In this hypothesis test, I aim to determine whether allocating greater gold to t
 A p-value of 0.0014 is obtained, rejecting the null hypothesis at 5% significance level. This suggests that a team that had more gold allocated to the bot laner/ADC than mid laner at 15 minutes had higher likelihood of winning the game. This implies that investing greater gold to bot lane may lead to a significant advantage in winning a game in professional level of League of Legends.
 
 ## Framing a Prediction Problem
+The goal of this project is to predict whether a row has the `position` value of 'mid' based on in-game statistics. The is_mid column is created a boolean variable indicating whether a player’s `position` in the game is classified as 'mid'.
 
+This is a binary classification problem, where the response variable (is_mid) takes values of either True or False. Predicting the is_mid class can help in understanding key performance indicators that are specific to mid-lane players, which may contribute to better understanding certain mechanics in the game.
+
+As only 20% of the data are mid-lane players, the dataset is highly imbalanced, making accuracy a rather misleading metric to measure performance. Rather, the focus should be more on precision and recall, where precision ensures that when the model predicts True it is correct as often as possible while recall ensures the model predicts as many actual positive values as possible, avoiding false negatives. As F1 calculates the harmonic mean of these metrics, the F1 score provides a more comprehensive and appropriate evaluation, preventing the model from favoring the majority and ensuring it performs effectively in identifying the true positive.
+
+Lastly, the dataset will be split in 8:2 train to test ratio to ensure a valid evaluation of the model's performance.
 
 ## Baseline Model
+The baseline model uses two features: `kills` and `earnedgoldshare`. These features were chosen for their relevance to player performance and potential to differentiate mid-lane players from other roles.
 
+A RandomForestClassifier was employed as the baseline model implemented within a sklearn pipeline with default hyperparameters. No transformers were used as both features were numerical with a RandomForestClassifier, meaning standard scaling would likely not provide any advantage. Below is the performance of the resulting model.
+
+**Performance**
+
+|                        | Predicted Not Mid (0) | Predicted Mid (1) |
+|------------------------|-----------------------|-------------------|
+| **Actual Not Mid (0)** | 12,693                | 2,615             |
+| **Actual Mid (1)**     | 2,710                 | 1,256             |
+
+
+**Accuracy**: 0.725
+
+**Precision**: 0.312
+
+**Recall**: 0.313
+
+**F1 Score**: 0.313
+
+It can be seen that the model performs poorly on the test dataset. It achieves accuracy of 0.725 in a dataset where 80% is False, meaning that a blind prediction of False would have given a higher accuracy. Its precision, recall, and F1 score are all around 0.313, showing that the model fails to identify rows with `is_mid` == True.
 
 ## Final Model
 
+**Additional features**
+To enhance the performance of the model, additional features were implemented.
+
+The updated model included the following features: `kills`, `earnedgoldshare`, `damagetochampions`, `gamelength`, `goldat15`, `csat15`, `visionscore`, and `champion`. These features provided a more comprehensive view of player performance, including total damage (`damagetochampions`),early game statistics (`goldat15`, `csat15`), vision control (`visionscore`), and champion selection.
+
+Custom transformations were applied to create meaningful ratios, such as `goldat15`/`csat15`, `visionscore`/`gamelength`, and `damagetochampions`/`gamelength`, using a custom FunctionTransformer.
+
+`goldat15`/`csat15` was created with the intention to serve as an indicator of the proportion of gold obtained early game by farming, which could be able to help distinguish mid lane from other lanes.
+
+`visionscore` was included with the purpose of providing guidance for distinguishing specifically support laner data from min laner data, as it was seen before in bivariate analysis that support laners have significantly higher vision score. Further, as a player will obtain higher vision score in longer games, vision score is standardized through division by `gamelength`.
+
+`damagetochampions` was included with the purpose of providing guidance for distinguishing mid laners from other lanes, especially top and adc, as adc tends to put greater focus in dealing damage and top tends to play tanky characters more than mid lane. Further, as a player will deal greater damage in longer games, `damagetochampions` is standardized through division by `gamelength`.
+
+Lastly, `champion` column was added with one-hot-encoding applied. This was added as mid laners, while not limited by rule to play any champions, often play what are known to be most effective as a mid lane champion. This column is expected to help significantly, although the champion pool for mid lane changed throughout the year.
+
+**Grid search**
+The RandomForestClassifier was used for the final model as well, and the hyperparameters were optimized through grid search.
+
+`max_depth`: 2 through 200 with step = 20
+chosen: 162
+
+`n_estimators`: 2 through 100 with step = 10
+chosen: 82
+
+`criterion`: 'gini', 'entropy'
+chosen: 'gini'
+
+**Performance**
+
+|                        | Predicted Not Mid (0) | Predicted Mid (1) |
+|------------------------|-----------------------|-------------------|
+| **Actual Not Mid (0)** | 15,296                | 238               |
+| **Actual Mid (1)**     | 428                   | 3,312             |
+
+**Accuracy**: 0.965
+
+**Precision**: 0.933
+
+**Recall**: 0.886
+
+**F1 Score**: 0.909
+
+The model is shown to have made significant improvement, with notably higher F1 score of 0.909. The enhanced feature set and hyperparameter optimization contributed to the improvement over the baseline model.
+
+However, the recall is seen to be noticeably lower than precision, meaning that the model more often makes the mistake of failing to detect a mid laner than to wrongly predict a mid laner.
 
 ## Fairness Analysis
