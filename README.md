@@ -370,4 +370,4 @@ Permutation test is ran with 1000 trials.
   frameborder="0"
 ></iframe>
 
-P-value of 0.407 is obtained, and as 0.407 > 0.05, I fail to reject the null hypothesis. This result suggests that our model predicts players with fewer than 4 kills and players with 4 or more kills with similar F1 scores. Therefore, the model appears to be fair and does not show bias based on the specified criteria.
+P-value of 0.407 is obtained, and as 0.407 > 0.05, I fail to reject the null hypothesis. This result suggests that the model predicts players with fewer than 4 kills and players with 4 or more kills with similar F1 scores. Therefore, the model appears to be fair and does not show bias based on the specified criteria.
