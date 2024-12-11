@@ -1,11 +1,21 @@
 # League of Legends Position Analysis
+Author: Chanyoung Park
 
 ## Introduction
 
 ### General introduction
+League of Legends (LoL) is a globally popular multiplayer online battle arena (MOBA) game developed by Riot Games. Released in 2009, it has grown into one of the most played and watched esports games in the world. The game is played by two teams of five players, each taking on specific roles: Top, Jungle, Mid, Bot (ADC), and Support.
+
+Due to the complex nature of the game, both professional and general players often stick to one or two roles throughout their career, specializing in their field. For this reason, there are many discussions regarding the comparisons of positions on difficulty, importance, and even superiority (?!). 
+
+Therefore, in order for the author to actively engage in and effectively win these arguments, the overall focus of this analysis is in comparing positions. All analysis is conducted without bias.
+
+One specific focus of this investigation will be on the allocation of gold. Specifically, I intend to find out whether allocating more gold to ADC/bot in early game is more beneficial to the winning of a game than allocating more gold to midlane.
+
+Further, a prediction model will be developed to predict whether a player is playing as a midlaner using the match data.
 
 ### Dataset introduction
-The dataset provides a wide range of columns that capture gameplay metrics and match outcomes from professional League of Legends (LoL) esports matches throughout the year 2024. 
+The dataset provides a wide range of columns that capture gameplay metrics and match outcomes from professional League of Legends (LoL) esports matches throughout the year 2024 provided by Oracle's Elixir. 
 
 The dataset contains 116,064 rows and 161 columns with extensive detail of the each game. Below is a brief introduction to the columns that this project will focus on:
 
@@ -86,6 +96,8 @@ The cleaned dataframe is saved as `df_2024`.
 
 ### Univariate Analysis
 
+Before performing any tests, some basic analysis will be performed to understand the nature of the data.
+
 **Univariate analysis on damage done to champions by individuals**
 
 <iframe
@@ -113,6 +125,8 @@ The histogram has a single peak at around 5000 gold indicating that most players
 The distribution is slightly skewed rightwards, some players earning up to 10k. This indicates that there are some cases where a player earns significantly more gold but these instances are relatively rare, likely from obtaining significant kills from early game fights. 
 
 ### Bivariate Analysis
+
+Further analysis is made to deeper understand the interactions between data with more focus on comparing positions.
 
 **Bivariate analysis on vision score per position**
 
@@ -224,7 +238,7 @@ Permutation test was ran 5000 times by shuffling the missingness of `goldat15` a
 The p-value found is 0.0, and as 0.0 < 0.05, the null hypothesis is rejected. The missingness of `goldat15` likely depends on `league`.
 
 ## Hypothesis Testing
-In this hypothesis test, I aim to determine whether allocating greater gold to the bot/ADC (Attack Damage Carry) compared to the mid laner at 15 minutes has a significant impact on the likelihood of winning the game. This investigation is vital for understanding optimal gold distribution strategies in League of Legends and their influence on game results.
+In this hypothesis test, the aim is to determine whether allocating greater gold to the bot/ADC (Attack Damage Carry) compared to the mid laner at 15 minutes has a significant impact on the likelihood of winning the game. This investigation is vital for understanding optimal gold distribution strategies in League of Legends and their influence on game results.
 
 **Null Hypothesis (H<sub>0</sub>)**: Allocating greater gold to the ADC than the mid laner at 15 minutes does not lead to a higher likelihood of winning the game compared to allocating greater gold to the mid laner.
 
@@ -256,10 +270,10 @@ In this hypothesis test, I aim to determine whether allocating greater gold to t
   frameborder="0"
 ></iframe>
 
-A p-value of 0.0014 is obtained, rejecting the null hypothesis at 5% significance level. This suggests that a team that had more gold allocated to the bot laner/ADC than mid laner at 15 minutes had higher likelihood of winning the game. This implies that investing greater gold to bot lane may lead to a significant advantage in winning a game in professional level of League of Legends.
+A p-value of 0.0014 is obtained, rejecting the null hypothesis at 5% significance level. This suggests that a team that had more gold allocated to the bot laner/ADC than mid laner at 15 minutes had higher likelihood of winning the game. This implies that investing greater gold to bot lane may lead to a significant advantage in winning a game in professional level of League of Legends, a tragic news for a midlaner.
 
 ## Framing a Prediction Problem
-The goal of this project is to predict whether a row has the `position` value of 'mid' based on in-game statistics. The is_mid column is created a boolean variable indicating whether a player’s `position` in the game is classified as 'mid'.
+The goal of the model is to predict whether a row has the `position` value of 'mid' based on in-game statistics. The is_mid column is created a boolean variable indicating whether a player’s `position` in the game is classified as 'mid'.
 
 This is a binary classification problem, where the response variable (is_mid) takes values of either True or False. Predicting the is_mid class can help in understanding key performance indicators that are specific to mid-lane players, which may contribute to better understanding certain mechanics in the game.
 
@@ -276,16 +290,16 @@ A RandomForestClassifier was employed as the baseline model implemented within a
 
 |                        | Predicted Not Mid (0) | Predicted Mid (1) |
 |------------------------|-----------------------|-------------------|
-| **Actual Not Mid (0)** | 12,693                | 2,615             |
-| **Actual Mid (1)**     | 2,710                 | 1,256             |
+| **Actual Not Mid (0)** | 12,960                | 2,571             |
+| **Actual Mid (1)**     | 2,580                 | 1,163             |
 
 
-**Accuracy**: 0.725\
-**Precision**: 0.312\
-**Recall**: 0.313\
-**F1 Score**: 0.313
+**Accuracy**: 0.733\
+**Precision**: 0.311\
+**Recall**: 0.311\
+**F1 Score**: 0.311
 
-It can be seen that the model performs poorly on the test dataset. It achieves accuracy of 0.725 in a dataset where 80% is False, meaning that a blind prediction of False would have given a higher accuracy. Its precision, recall, and F1 score are all around 0.313, showing that the model fails to identify rows with `is_mid` == True.
+It can be seen that the model performs poorly on the test dataset. It achieves accuracy of 0.733 in a dataset where 80% is False, performing worse than a model that would blindly predicts False. Its precision, recall, and F1 score are all around 0.311, showing that the model fails to identify rows with `is_mid` == True.
 
 ## Final Model
 
@@ -313,20 +327,20 @@ The RandomForestClassifier was used for the final model as well, and the hyperpa
 `criterion`: 'gini', 'entropy'
 
 chosen:\
-`max_depth`:162\
-`n_estimators`:82\
+`max_depth`:82\
+`n_estimators`:92\
 `criterion`:'gini'
 
 **Performance**
 
 |                        | Predicted Not Mid (0) | Predicted Mid (1) |
 |------------------------|-----------------------|-------------------|
-| **Actual Not Mid (0)** | 15,296                | 238               |
-| **Actual Mid (1)**     | 428                   | 3,312             |
+| **Actual Not Mid (0)** | 15,297                | 234               |
+| **Actual Mid (1)**     | 429                   | 3,314             |
 
-**Accuracy**: 0.965\
-**Precision**: 0.933\
-**Recall**: 0.886\
+**Accuracy**: 0.966\
+**Precision**: 0.934\
+**Recall**: 0.885\
 **F1 Score**: 0.909
 
 The model is shown to have made significant improvement, with notably higher F1 score of 0.909. The enhanced feature set and hyperparameter optimization contributed to the improvement over the baseline model.
@@ -334,3 +348,26 @@ The model is shown to have made significant improvement, with notably higher F1 
 However, the recall is seen to be noticeably lower than precision, meaning that the model more often makes the mistake of failing to detect a mid laner than to wrongly predict a mid laner.
 
 ## Fairness Analysis
+
+In this section, a fairness analysis is performed on low `kill` vs high `kill`. A low number of `kill` will be defined as strictly less than 4, and a high number of `kill` will be defined as greater or equal to 4. This was determined from that the mean kill was approximately 3.01. While using the median does hold the advantage in being less volatile, the author found it difficult for 2 kills to be considered as a 'high' kill count.
+
+The measure of fairness here used was F1 because firstly, the dataset is unbalanced, which makes accuracy an ineffective measure, and secondly, a balance of both precision and recall is desired. The focus of this analysis is to investigate the F1 parity between the two given groups.
+
+**Null Hypothesis (H<sub>0</sub>)**: The model is fair. Its F1 score for players with fewer than 4 kills is the same as for players with 4 or more kills.
+
+**Alternative Hypothesis (H<sub>a</sub>):** The model is unfair. Its F1 score for players with fewer than 4 kills is lower from that for players with 4 or more kills.
+
+**Test Statistic:** Signed difference in the F1 score difference between high `kill` and low `kill` data (high - low)
+
+**Significance Level**: 0.05
+
+Permutation test is ran with 1000 trials.
+
+<iframe
+  src="assets/fairness_fig.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+P-value of 0.407 is obtained, and as 0.407 > 0.05, I fail to reject the null hypothesis. This result suggests that our model predicts players with fewer than 4 kills and players with 4 or more kills with similar F1 scores. Therefore, the model appears to be fair and does not show bias based on the specified criteria.
